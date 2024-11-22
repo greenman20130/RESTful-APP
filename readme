@@ -1,0 +1,66 @@
+Установка
+
+1.
+Установите Poetry:
+
+curl -sSL https://install.python-poetry.org | python3 -
+
+2.
+Создайте новый проект Poetry:
+
+poetry new project_name
+
+3.
+Перейдите в папку проекта и установите зависимости:
+
+cd project_name
+poetry install
+
+Настройка
+
+1.
+Обновите конфигурационный файл pyproject.toml с вашими зависимостями и настройками.
+2.
+Создайте базу данных SQLite (или используйте другую базу данных, изменив DATABASE_URL в app/database/database.py):
+
+alembic upgrade head
+
+3.
+Запустите приложение:
+
+uvicorn main:app --reload
+
+Структура проекта
+project_folder/
+│   main.py
+│   alembic.ini
+│   pyproject.toml
+│
+└───app/
+    │   __init__.py
+    │
+    ├───api/
+    │   │   __init__.py
+    │   │   endpoints.py
+    │   │
+    │   └───models/
+    │       │   __init__.py
+    │       │   models.py
+    │
+    └───database/
+        │   __init__.py
+        │   database.py
+        │
+        └───migrations/
+            │   env.py
+            │   script.py.mako
+            │
+            └───versions/
+                │   <версия_миграции>.py
+
+Использование
+
+Определите ваши модели SQLAlchemy в app/api/models/models.py.
+Определите ваши API-конечные точки в app/api/endpoints.py.
+Создайте новые миграции Alembic с помощью команды alembic revision --autogenerate -m "Название миграции".
+Обновите базу данных с помощью команды alembic upgrade head.
